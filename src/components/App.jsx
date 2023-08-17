@@ -1,16 +1,16 @@
+import { Component } from 'react';
+import { ContactForm } from './ContactForm/ContactForm';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <div>
+        
+
+        <Section title="Phonebook">
+          <ContactForm addContact={this.addContact} />
+        </Section>
+
+        
+      </div>
   );
 };
