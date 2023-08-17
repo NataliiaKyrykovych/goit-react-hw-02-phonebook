@@ -8,5 +8,7 @@ export const StyledContactList = styled.ul`
   button {
     margin-left: 10px;
     font-size: 10px;
+    background-color: lightyellow;
   }
+  
 `;

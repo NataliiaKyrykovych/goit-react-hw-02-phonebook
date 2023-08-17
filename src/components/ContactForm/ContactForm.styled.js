@@ -25,10 +25,12 @@ export const StyledForm = styled(Form)`
   button {
     width: 120px;
     margin: 15px auto;
+    background-color: lightyellow;
   }
 `;
 
 export const StyledInput = styled(Field)`
   width: 200px;
   height: 40px;
+  background-color: lightblue;
 `;
