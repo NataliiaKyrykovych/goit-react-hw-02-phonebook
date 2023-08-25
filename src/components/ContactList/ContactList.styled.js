@@ -25,7 +25,7 @@ export const DeleteBtn = styled.button`
   margin-left: auto;
   padding: 4px 8px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  background-color: #fff;
+  background-color: lightyellow;
   border-color: transparent;
   width: fit-content;
   
