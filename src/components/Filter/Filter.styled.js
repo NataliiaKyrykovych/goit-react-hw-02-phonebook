@@ -1,16 +1,25 @@
 import styled from 'styled-components';
 
-export const StyledFilter = styled.div`
-  background-color: lightyellow;
-  padding: 10px 5px;
+export const Wrapper = styled.div`
+  margin-bottom: 16px;
+`;
 
-  span {
-    margin-left: 20px;
-  }
+export const FormItem = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 500;
+`;
 
-  input {
-    margin-left: 10px;
-    height: 30px;
-    background-color: lightblue;
+export const FormField = styled.input`
+  border-color: lightgreen;
+  border-style: solid;
+  font-size: 16px;
+  font-weight: 400;
+
+  &:hover,
+  &:focus {
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   }
 `;

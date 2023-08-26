@@ -1,16 +1,16 @@
-import { StyledFilter } from "./Filter.styled";
+import { FormField, FormItem, Wrapper } from './Filter.styled';
 
-export const Filter = ({ value, onChange }) => {
+export const Filter = ({ filterByName, onChangeName }) => {
   return (
-    <StyledFilter>
-      <label>
-        <span>Find contacts by name:</span>
-        <input
+    <Wrapper>
+      <FormItem>
+        Find contacts by name
+        <FormField
           type="text"
-          value={value}
-          onChange={event => onChange(event.target.value)}
+          value={filterByName}
+          onChange={evt => onChangeName(evt.target.value)}
         />
-      </label>
-    </StyledFilter>
+      </FormItem>
+    </Wrapper>
   );
 };

@@ -1,51 +1,56 @@
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
+import {
+  FormItem,
+  StyledField,
+  StyledForm,
+  SubmitBtn,
+  ErrMessage,
+} from './ContactForm.styled';
 import * as Yup from 'yup';
-import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { StyledForm, StyledInput } from './ContactForm.styled';
 
 const schema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+  name: Yup.string().trim().required('Required'),
   number: Yup.number().required('Required'),
 });
 
-const initialValues = {
-  name: '',
-  number: '',
+export const ContactForm = ({ addContact }) => {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      validationSchema={schema}
+      onSubmit={(values, actions) => {
+        addContact({...values, id: nanoid()});
+        actions.resetForm();
+      }}
+    >
+      <StyledForm>
+        <FormItem>
+          Name
+          <StyledField
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          />
+          <ErrMessage name="name" component="div" />
+        </FormItem>
+
+        <FormItem>
+          Number
+          <StyledField
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          />
+          <ErrMessage name="number" component="div" />
+        </FormItem>
+        <SubmitBtn type="submit">Add contact</SubmitBtn>
+      </StyledForm>
+    </Formik>
+  );
 };
-
-export class ContactForm extends Component {
-  handleSubmitForm = (value, actions) => {
-    this.props.addContact({ ...value, id: nanoid() });
-    actions.resetForm();
-  };
-
-  render() {
-    return (
-      <Formik
-        initialValues={initialValues}
-        validationSchema={schema}
-        onSubmit={this.handleSubmitForm}
-      >
-        <StyledForm>
-          <label>
-            <p>Name:</p>
-            <StyledInput type="text" name="name" placeholder="Input name" />
-            <ErrorMessage name="name" component="span"/>
-          </label>
-
-          <label>
-            <p>Number:</p>
-            <StyledInput type="tel" name="number" placeholder="Input number" />
-            <ErrorMessage name="number" component="span"/>
-          </label>
-
-          <button type="submit">Add contact</button>
-        </StyledForm>
-      </Formik>
-    );
-  }
-}

@@ -1,67 +1,61 @@
-import { GlobalStyle } from './GlobalStyle';
 import { Component } from 'react';
-import { ContactForm } from './ContactForm/ContactForm';
+import { GlobalStyles } from './GlobalStyle';
+import { Container, MainTitle, Title } from './App.styled';
 import { ContactList } from './ContactList/ContactList';
-import { Section } from './Section/Section';
+import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
 
-  addContact = newName => {
-    if (
-      this.state.contacts.map(contact => contact.name).includes(newName.name)
-    ) {
-      alert(`${newName.name} is already in contacts`);
-    } else {
-      this.setState(prevState => {
-        return {
-          contacts: [...prevState.contacts, newName],
-        };
-      });
-    }
+  addContact = newContact => {
+    this.state.contacts.find(contact => contact.name.toLowerCase() === newContact.name.toLowerCase()) ===
+    undefined
+      ? this.setState(prevState => {
+          return { contacts: [...prevState.contacts, newContact] };
+        })
+      : alert(`${newContact.name} is already in contacts`);
   };
 
-  changeFilter = newFilter => {
-    this.setState({
-      filter: newFilter,
-    });
-  };
-
-  handleDelete = id => {
+  deleteContact = delContactId => {
     this.setState(prevState => {
       return {
-        contacts: prevState.contacts.filter(contact => contact.id !== id),
+        contacts: prevState.contacts.filter(
+          contact => contact.id !== delContactId
+        ),
       };
     });
   };
 
+  changeFilterByName = name => {
+    this.setState({ filter: name });
+  };
+
   render() {
     const { contacts, filter } = this.state;
-
     const visibleContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
 
     return (
-      <div>
-        <GlobalStyle />
+      <Container>
+        <MainTitle>Phonebook</MainTitle>
+        <ContactForm addContact={this.addContact} />
 
-        <Section title="Phonebook">
-          <ContactForm addContact={this.addContact} />
-        </Section>
+        <Title>Contacts</Title>
+        <Filter filterByName={filter} onChangeName={this.changeFilterByName} />
+        <ContactList contacts={visibleContacts} onDelete={this.deleteContact} />
 
-        <Section title="Contacts">
-          <Filter value={this.state.filter} onChange={this.changeFilter} />
-          <ContactList
-            contacts={visibleContacts}
-            onDelete={this.handleDelete}
-          />
-        </Section>
-      </div>
+        <GlobalStyles />
+      </Container>
     );
   }
 }

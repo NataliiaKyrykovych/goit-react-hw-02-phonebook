@@ -1,36 +1,45 @@
 import styled from 'styled-components';
-import { Field, Form } from 'formik';
+import { Form, Field, ErrorMessage } from 'formik';
 
 export const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px;
-  border: 2px solid black;
-  border-radius: 5px;
+  gap: 24px;
+  padding: 16px;
+  margin-bottom: 32px;
+  border: 2px solid pink;
+`;
 
-  p {
-    margin-bottom: 5px;
-  }
+export const FormItem = styled.label`
+  display: flex;
+  flex-direction: column;
+`;
 
-  label {
-    margin-top: -5px;
-  }
+export const ErrMessage = styled(ErrorMessage)`
+  color: red;
+`;
 
-  span {
-    color: red;
-    margin-left: 5px;
-  }
+export const SubmitBtn = styled.button`
+  padding: 4px 8px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: lightyellow;
+  border-color: transparent;
+  width: fit-content;
+  border-radius: 8px;
 
-  button {
-    width: 120px;
-    margin: 15px auto;
-    background-color: lightyellow;
+  &:hover,
+  &:focus {
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   }
 `;
 
-export const StyledInput = styled(Field)`
+export const StyledField = styled(Field)`
+  border-color: lightgreen;
+  border-style: solid;
   width: 200px;
-  height: 40px;
-  background-color: lightblue;
+
+  &:hover,
+  &:focus {
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+  }
 `;
